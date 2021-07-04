@@ -38,3 +38,9 @@ Grafiksel arayuz ile iletisim kurmak. Resmi gui araci dashboard, oktant, land en
 * #### kubectl
 Shell uzerinden apiserver a komutlar doderdigimiz k8s in resmi cli aracidir. k8s cluster olusturulmadan once ilk olarak kubectl yuklenmesi gerekir.
 
+## kubectl config dosyasi
+* kubectl araci baglanacagi kubernetes cluster bilgilerine config dosyalari araciligiyla erisir
+* config dosyasinin icerisinde kubernetes cluster baglanti bilgilerini ve oraya baglanirken kullanmak istedigimiz kullanicilari belirtiriz
+* Daha sonra bu baglanti bilgileri ve kullanicilari ve ek olarak namespace bilgileirni de olusturarak contextler yaratiriz
+* kubectl varsayilan olarak $HOME/.kube/ altindaki config isimli dosyaya bakar
+* kubectl varsayilan olarak $HOME/.kube/ altindaki config dosyasina bakar ama bunu KUBECONFIG environment variable degerini degistirerek guncelleyerebilirsiniz
