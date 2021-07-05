@@ -44,3 +44,14 @@ Shell uzerinden apiserver a komutlar doderdigimiz k8s in resmi cli aracidir. k8s
 * Daha sonra bu baglanti bilgileri ve kullanicilari ve ek olarak namespace bilgileirni de olusturarak contextler yaratiriz
 * kubectl varsayilan olarak $HOME/.kube/ altindaki config isimli dosyaya bakar
 * kubectl varsayilan olarak $HOME/.kube/ altindaki config dosyasina bakar ama bunu KUBECONFIG environment variable degerini degistirerek guncelleyerebilirsiniz
+
+## pod
+* kubernetes icinde yaratilan en temel obje pod dur.
+* kubernetesde olusturabileceginiz en kucuk birimlerdir
+* podlar bir yada daha fazla container barindirabilirler ancak cogu duurmda pod tek bir container barindirir
+* her bir pod un essiz bir idsi "uid" bulunur
+* her pod essiz bir ip adresine sahiptir.
+* ayni pod icersindeki containerlar ayni node ustunde calistirilir ve bu containerlar birbirleriyle localhost ustunden haberlesebilirler.
+* kubectl ile kubea-api ile haberleserek k8s uzerinde pod yaratma islemi gerceklestirilir. api server bu poda bizim tanimladigimiz bilgileri atar ve bir pod yaratir ve etcd veri tabanina kaydedir. kube-scheduler componenti surekli burayi gozler ve herhangi bir worker node atamasi yapilmamis pod tanimi yapilmamissa o podun calismasi icin uygun bir worker node secer ve bu bilgiyi pod tanimina ekler. Sonrasinda worker node uzerinde calisan kubelet servisi de bu etcd yi surekli gozledigi icin bu pod tanimini gorur ve bu tanimda belirtilen container o worker node uzerinde olusturulur ve boylece pod olusturulma asamalari tamamlanir.
+* 
+
