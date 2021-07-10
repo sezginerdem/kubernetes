@@ -210,3 +210,20 @@ EmptyDir olusturulmasi ile ilgili gerekli tanimlamalari yaptiginiz zaman k8s pod
 Temelde emptydir ile mantik olarak aynidir. Yine siz bir volume yaratilmasi icin bir pod taniminizda gerekli ayarlamalari yaparsiniz fakat bu sefer rastgele bos klasor yaratilmasini soylemek yerine podun olusturulacagi worker node uzerindeki spesifik bir klasoru veya dosyayi belirtirsiniz. Ornegin worker node uzerindeki /tmp dosyasinin volume olarak kullanmasini soyleyebilirsiniz. Daha sonra container icerisindeki bir path e mounth edebilirsiniz. 
 Bu genelde podlarin calistigi worker node lar uzerinde bulunan spesifik folder ya da dosyalara erismesi gerektigi durumlarda isimize yarar. Misal ozel bir path de konuslanmis bur unique soketine container in baglanmasi gerekirse burayi hostpath ile container a mount edebiliriz.
 Volume yaml dosyalarinda once volume leri yazariz daha sonra bunlarin path ini containerlara mount ederiz.
+
+## secret
+Secretlar, parolalar, OAuth token ve ssh anahtarlari gibi hassas bilgileri depolamaniza ve yonetmenize olanak tanir. Gizli bilgileri bir secret icinde saklamak onu bir pod tanimina veya bir container imajina koymaktan daha guvenli ve esnektir.
+1. env variable lari yaml dosyalarinda tanimladigimizda bu doslarar erisebilen herkes bu bilgilere de kolaylikla erisebiliyor.
+2. verilerin degismesi sifrenin guncellenmesi gerektigi zaman yaml dosyasi icerisinde degisikliklere gitmem gerekiyor. 
+Bu hassas bilgileri bu tanimlamalardan ayirmak gerekiyor bunu da secretlar ile saglayabiliyoruz.
+Verileri secret icerisinde saklar sonrasinda pod a ekleriz. secretlar da diger objeler gibi yaratabilriz.
+secret ile pod ayni namespace icinde olmali.
+8 degisik tipte secret yaratabiliriz. Opaque bunlardan varsayilan olan turdur. Ama nerdeyse hicbir zaman Opaque disinda bir scret tipini kullanmayiz. 
+Bu secretlari pod a nasil ekleriz. 2 senecek var ya bunlari voluma araciligiyla ya da env variable araciligiyla ekleriz.
+bu secretlar etcd de base64 olarak tutuyor. kendi yonettigimiz clusterlarda manuel olarak bu secretlari encrypt etmemiz gerekiyor. Cloud saglayicilar bunu bizim yerimize otomatik olarak yapiyor. 
+siz bir secret olusturdugunuzda diger objelerde oldugu gubu diger kullanicilar da bu secretlara varsayilan olarak erisim hakkina sahip.
+
+## configmap
+Gizli olmayan verileri anahtar/deger eslenikleri olarak depolamak icin kullanilan bir API nesnesidir. Podlar, ConfigMap'i environment variable, komut satiri argumanlari veya bir volume olarak baglanan yapilandirma dosyalari olarak kullanabilir.
+secretlar ile ayni gorevi gorurler. olusturulan configmap dosyaarindaki key value ler ile verileri tutup bunlari env var olarak ya da volme olarak podlara aktarabiliriz. Olusturma adimlari da nerede ise birebir aynidir. sadece secret yazilan yerlere configmap yazilir. Peki birebir ayni ise neden iki farkli obje tipi vardir. secret hassas verileri saklamak icin kullanilan objelerdir. olusturulan secretler base64 encode edilerek etcd de saklanir ve ayar yaparsak etcd uzerinde encryptsiz sekilde durabilir. config mapde ise verilen base64 edilmez ve encrypt etmemize de gerek yoktur. Cunku bizler config map icerisinde gizli olmayan fakat yine de pod tanimimizdan ayirmamiz gereken configurasyon tarzi bilgileri tutariz. yani uygulama disinda tutmaniz gereken veri sifre ssh anahtari gibi gizli bir veri ise secret degilse configmap uygun olacaktir. bu ikisinin etcd de encoded olarak tutulmasi disinda birebir aynidir. ilerde secretlarin guncellenmesinin otomatize edilmesi ya da ozel secret store larda ayri tutulmasi gibi ek ozellikler getirilebilir. Bu nedenle en bastan iki farkli obje tipi olusturmus k8s.
+Yaml dosyasi secret gibi tek farki data kismian girmek istedigim bilgileri key value seklinde girmek ya da site.settings altinda oldugu gibi birden fazla degeri alt alta girebiliyorum. poda aktarma kismi secret ile ayni. 
