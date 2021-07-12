@@ -309,3 +309,6 @@ Podlar 0 dan baslayarak isimlendirilir. Ready olduktan sonra diger pod olusturul
 ## job
 Bir job objesi, bir veya daha fazla pod olusturur ve belirli sayida pod basariyla sonlanririlana kadar pod yurutmeyi yeniden deneeye devam eder. Job belirtilen sayida podun basariyla tamamlanma durumunu izler. Belirtilen sayida basarili tamamlamaya ulasildiginda, job (yani gorev) tamamlanir. Bir Job un silinmesi olsuturdugu podlari temizlemeyecktir. 
 Hangi durumlarda kullanilir? 1. Tek seferlik calisip yapmasi gerekeni yapip kapanan uygulamalari job olarak deploy edebiliriz. ornegin maintannce scriptler. 2. Bir kuyruk veya bir bucket da islenmesi gereken pek cok isimiz oldugunda bunlari eritme adina bunlar eriyene kadar calisacak uygulamarli job seklinde deploy ederiz.
+apisi batch/v1
+spec kismidna 4 secenek var. paralelelism: pod olusturulma islemini kacar kacar yapacagini. completions: job altinda kac tane basarili pod calismasini istiyoruz. template kisminda container bilgilerini yaziyoruz. Bu ikisinin hemen altinda backofflimit: podlar olusturulmaya baslandikten sonra kac sefer fail ederse job u fail et demek. ActiveDeadlineSeconds ise job u fail etmeyi secons cinsinden belirtiyoruz.
+Job yarattiktan sonra isi biten podlari manuel olarak silmek gerekiyor ki yer kaplamasin artik.
