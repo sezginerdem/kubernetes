@@ -312,3 +312,7 @@ Hangi durumlarda kullanilir? 1. Tek seferlik calisip yapmasi gerekeni yapip kapa
 apisi batch/v1
 spec kismidna 4 secenek var. paralelelism: pod olusturulma islemini kacar kacar yapacagini. completions: job altinda kac tane basarili pod calismasini istiyoruz. template kisminda container bilgilerini yaziyoruz. Bu ikisinin hemen altinda backofflimit: podlar olusturulmaya baslandikten sonra kac sefer fail ederse job u fail et demek. ActiveDeadlineSeconds ise job u fail etmeyi secons cinsinden belirtiyoruz.
 Job yarattiktan sonra isi biten podlari manuel olarak silmek gerekiyor ki yer kaplamasin artik.
+
+## CronJob
+Bir CronJob objesi bir crontab (cron tablosu) dosyasinin bir satiri gibidir. Belirli bir zamanlamaya gire Cron formatinda yazilmis bir Jobu periyodik olarak calistirir.
+Job objesini manuel baslatmak yerine her pazar ya da her 5 dk da bir baslatilmasina imkan taniyan bir obje. Linuxdeki crontab in aynisi. 
